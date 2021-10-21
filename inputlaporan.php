@@ -2,10 +2,6 @@
 <html lang="en">
 
 <head>
-	<meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Quixlab - Bootstrap Admin Dashboard Template by Themefisher.com</title>
 <?php include('head.html');?>
 
 </head>
@@ -37,7 +33,7 @@
         ***********************************-->
         <div class="nav-header">
             <div class="brand-logo">
-                <a href="index.html">
+                <a href="index.php">
                     <b class="logo-abbr"><img src="images/logo.png" alt=""> </b>
                     <span class="logo-compact"><img src="./images/logo-compact.png" alt=""></span>
                     <span class="brand-title">
@@ -53,81 +49,12 @@
         <!--**********************************
             Header start
         ***********************************-->
-        <div class="header">    
-            <div class="header-content clearfix">
-                
-                <div class="nav-control">
-                    <div class="hamburger">
-                        <span class="toggle-icon"><i class="icon-menu"></i></span>
-                    </div>
-                </div>
-                <div class="header-right">
-                    <ul class="clearfix">
-                        <li class="icons dropdown">
-                            <div class="user-img c-pointer position-relative"   data-toggle="dropdown">
-                              
-                                <img src="images/user/1.png" height="40" width="40" alt="">
-                            </div>
-                            <div class="drop-down dropdown-profile   dropdown-menu">
-                                <div class="dropdown-content-body">
-                                    <ul>
-                                        <li>
-                                            <a href="page-login.html"><i class="icon-user"></i> <span>Ganti Password</span></a>
-                                        </li>
-                                        <li><a href="app-profile.html"><i class="icon-key"></i> <span>Logout</span></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <!--**********************************
-            Header end ti-comment-alt
-        ***********************************-->
+		<?php include ('header.html');?>	
 
         <!--**********************************
             Sidebar start
         ***********************************-->
-        <div class="nk-sidebar">           
-            <div class="nk-nav-scroll">
-                <ul class="metismenu" id="menu">
-                    <li class="nav-label">Menu</li>
-					<li>
-                        <a href="index.php" aria-expanded="false">
-                            <i class="icon-home menu-icon"></i><span class="nav-text">Home</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class="icon-notebook menu-icon"></i><span class="nav-text">Prakerin</span>
-                        </a>
-                        <ul aria-expanded="false">
-                            <li><a href="pendaftaran.php">Pendaftaran</a></li>
-                            <li><a href="perusahaan.php">Referensi Tempat</a></li>
-                        </ul>
-                    </li>
-					<li>
-                        <a href="siswa.php" aria-expanded="false">
-                            <i class="icon-people menu-icon"></i><span class="nav-text">Daftar Siswa</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class="icon-screen-tablet menu-icon"></i><span class="nav-text">Laporan Prakerin</span>
-                        </a>
-                        <ul aria-expanded="false">
-                            <li><a href="inputlaporan.php">Input Laporan</a></li>
-                            <li><a href="lihatlaporan.php">Lihat Laporan</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <!--**********************************
-            Sidebar end
-        ***********************************-->
+		<?php include('side.php');?>
 
         <!--**********************************
             Content body start
@@ -136,12 +63,20 @@
             <div class="row page-titles mx-0">
                 <div class="col p-md-0">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="siswa-input.php"><button type="button" class="btn mb-1 btn-outline-primary">Input Data Baru</button></a></li>
+
                     </ol>
                 </div>
             </div>
             <!-- row -->
-
+			<!-- QUERY START -->
+			<?php
+			include('koneksi.php');
+			$nis=$row_user['username'];
+			$query = mysqli_query($con, "SELECT siswa.*, perusahaan.nama_perusahaan FROM siswa INNER JOIN perusahaan ON siswa.id_perusahaan=perusahaan.id WHERE nis='$nis'") or die(mysqli_connect_error());
+			$row = mysqli_fetch_assoc($query);
+			$count = 1;
+			?>
+			
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12">
@@ -150,56 +85,60 @@
                                 
                                 <h4 class="card-title">Input Laporan Prakerin</h4>
                                 <div class="basic-form">
-                                    <form>
-										<div class="form-group row">
-                                            <label class="col-sm-2 col-form-label">NIS</label>
-											<div class="col-sm-2">
-                                              <select id="inputState" class="form-control">
-                                                <option selected="selected">Choose...</option>
-                                                <option>Option 1</option>
-                                                <option>Option 2</option>
-                                                <option>Option 3</option>
-                                              </select>
-											</div>
-                                       </div>
-                                        <div class="form-group row">
+                                    <form method="post" action="laporan_save.php">
+                                         <div class="form-group row">
                                             <label class="col-sm-2 col-form-label">Nama</label>
-                                            <div class="col-sm-8">
-                                                <input disabled type="text" class="form-control" placeholder="Nama">
+                                            <div class="col-sm-5">
+                                                <input type="text" class="form-control" readonly name="nama" placeholder="Nama Lengkap" value="<?=$row['nama'];?>">
+                                                <input type="hidden" class="form-control" readonly name="id_siswa" value="<?=$row['id'];?>">
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="col-sm-2 col-form-label">Jurusan</label>
-                                            <div class="col-sm-4">
-                                                <input disabled type="text" class="form-control" placeholder="Jurusan">
+                                            <label class="col-sm-2 col-form-label">NIS</label>
+                                            <div class="col-sm-3">
+                                                <input type="text" class="form-control" name="nis" readonly value="<?=$row['nis'];?>">
                                             </div>
+                                        </div>
+										<div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">Kelas</label>
+                                            <div class="col-sm-2">
+												<input type="text" class="form-control" name="kelas" readonly value="<?=$row['kelas'];?>">
+											</div>
+                                        </div>
+										<div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">Jenis Kelamin</label>
+                                            <div class="col-sm-2">
+												<input type="text" class="form-control" name="jenis_kelamin" readonly value="<?=$row['jenis_kelamin'];?>">
+											</div>
+                                        </div>
+										<div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">Jurusan</label>
+                                            <div class="col-sm-2">
+												<input type="text" class="form-control" name="jurusan" readonly value="<?=$row['jurusan'];?>">
+											</div>
                                         </div>
 										<div class="form-group row">
                                             <label class="col-sm-2 col-form-label">Perusahaan</label>
-											<div class="col-sm-4">
-                                              <select id="inputState" class="form-control">
-                                                <option selected="selected">Choose...</option>
-                                                <option>Option 1</option>
-                                                <option>Option 2</option>
-                                                <option>Option 3</option>
-                                              </select>
+                                            <div class="col-sm-2">
+												<input type="text" class="form-control" name="perusahaan" readonly value="<?=$row['nama_perusahaan'];?>">
+												<input type="hidden" class="form-control" readonly name="id_perusahaan" value="<?=$row['id_perusahaan'];?>">
 											</div>
-                                       </div>
+                                        </div>
 									   <div class="form-group row">
                                             <label class="col-sm-2 col-form-label">Tanggal Mulai</label>
                                             <div class="input-group col-sm-2">
-                                                <input type="text" class="form-control" id="datepicker-autoclose" placeholder="mm/dd/yyyy"> <span class="input-group-append"><span class="input-group-text"><i class="mdi mdi-calendar-check"></i></span></span>
+                                                <input type="text" name="tgl_mulai" class="form-control" id="datepicker-autoclose" placeholder="mm/dd/yyyy"> <span class="input-group-append"><span class="input-group-text"><i class="mdi mdi-calendar-check"></i></span></span>
                                             </div>
 										</div>
 									   <div class="form-group row">
-                                            <label class="col-sm-2 col-form-label">Tanggal Selesai</label>
+                                            <label class="col-sm-2 col-form-label">Tanggal Kembali</label>
                                             <div class="input-group col-sm-2">
-                                                <input type="text" class="form-control mydatepicker" placeholder="mm/dd/yyyy"> <span class="input-group-append"><span class="input-group-text"><i class="mdi mdi-calendar-check"></i></span></span>
+                                                <input type="text" name="tgl_kembali" class="form-control mydatepicker" placeholder="mm/dd/yyyy"> <span class="input-group-append"><span class="input-group-text"><i class="mdi mdi-calendar-check"></i></span></span>
                                             </div>
 										</div>
                                         <div class="form-group row">
                                             <div class="col-sm-10">
-                                                <button type="submit" class="btn btn-dark">Sign in</button>
+                                                <button type="submit" class="btn btn-dark">Submit</button>
                                             </div>
                                         </div>
                                     </form>

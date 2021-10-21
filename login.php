@@ -43,7 +43,9 @@ session_start();//session starts here
                     <div class="form-input-content">
                         <div class="card login-form mb-0">
                             <div class="card-body pt-5">
-                                <a class="text-center" href="index.html"> <h4>Rosella</h4></a>
+								<center><img src="images/logo1.png" height="50%" width="50%"></center>
+								<a class="text-center"><h3>Sistem Informasi Prakerin</h3></a><br>
+                                <a class="text-center"><h4>SMK Az-Zahra Sepatan</h4></a>
         
                                 <form class="mt-5 mb-5 login-input" action="login.php" method="post"> 
                                     <div class="form-group">
@@ -54,7 +56,6 @@ session_start();//session starts here
                                     </div>
                                     <button class="btn login-form__btn submit w-100" type="submit" value="Login" name="login">Sign In</button>
                                 </form>
-                                <p class="mt-5 login-form__footer">Dont have account? <a href="page-register.html" class="text-primary">Sign Up</a> now</p>
                             </div>
                         </div>
                     </div>

@@ -20,8 +20,8 @@
 							if ($row_id['jabatan']=='siswa') {
 								echo '<li><a href="pendaftaran-siswa.php">Pendaftaran</a></li>';
 							}
-							else {
-								echo '<li><a href="pendaftaran.php">Pendaftaran</a></li>';
+							else if ($row_id['jabatan']=='administrator'){
+								echo '<li><a href="user_input.php">Buat User Baru</a></li>';
 							}
 							?>
                             <li><a href="perusahaan.php">Referensi Tempat</a></li>

@@ -31,10 +31,11 @@ menu admin
 
 kepala sekolah
 -home  
--laporan prakerin
-    a.lihat laporan ( print )
 -daftar siswa 
   a. list
+-laporan prakerin
+    a.lihat laporan ( print )
+
 
 
 kepala jurusan

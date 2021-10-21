@@ -60,6 +60,12 @@
             Content body start
         ***********************************-->
         <div class="content-body">
+            <div class="row page-titles mx-0">
+                <div class="col p-md-0">
+                    <ol class="breadcrumb">
+                    </ol>
+                </div>
+            </div>
             <!-- row -->
 			
 			<!-- QUERY START -->
@@ -71,7 +77,7 @@
 			$nis=$row_user['username'];
 			$query3 = mysqli_query($con, "SELECT siswa.*, perusahaan.id, perusahaan.nama_perusahaan FROM siswa INNER JOIN perusahaan ON siswa.id_perusahaan=perusahaan.id WHERE nis='$nis'") or die(mysqli_connect_error());
 			$row3 = mysqli_fetch_assoc($query3);
-			$xrow3 = mysqli_num_rows($query3);
+			$xrow3 = mysqli_num_rows($query3)
 			?>
 			
             <div class="container-fluid">
@@ -79,71 +85,29 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">Pendaftaran Prakerin</h4>
+                                <h4 class="card-title">Input Data Perusahaan</h4>
                                 <div class="basic-form">
                                     <?php
 									if ($xrow3=="0") {
 									?>									
 									<form method="post" action="pendaftaran-siswa_save.php">
                                         <div class="form-group row">
-                                            <label class="col-sm-2 col-form-label">Nama</label>
+                                            <label class="col-sm-2 col-form-label">Nama Perusahaan</label>
                                             <div class="col-sm-5">
-                                                <input type="text" class="form-control" name="nama" placeholder="Nama Lengkap">
-                                                <input type="hidden" class="form-control" name="id" placeholder="Nama Lengkap" value=<?=$id;?>>
+                                                <input type="text" class="form-control" name="nama_perusahaan" placeholder="Nama Perusahaan">
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="col-sm-2 col-form-label">NIS</label>
-                                            <div class="col-sm-3">
-                                                <input type="text" class="form-control" name="nis" readonly value="<?=$row_user['username'];?>">
+                                            <label class="col-sm-2 col-form-label">Alamat Perusahaan</label>
+                                            <div class="col-sm-5">
+                                                <input type="textbox" class="form-control" name="alamat_perusahaan" placeholder="Alamat Perusahaan" >
                                             </div>
                                         </div>
-										<div class="form-group row">
-                                            <label class="col-sm-2 col-form-label">Jurusan</label>
-                                            <div class="col-sm-2">
-												<select class="form-control" name="jurusan">
-													<option value="" disabled selected>-</option>
-													<option value="OTKP">OTKP</option>
-													<option value="TKJ">TKJ</option>
-													<option value="TBSM">TBSM</option>
-												</select>
-											</div>
-                                        </div>
-										<div class="form-group row">
-                                            <label class="col-sm-2 col-form-label">Kelas</label>
-                                            <div class="col-sm-2">
-												<select class="form-control" name="kelas">
-													<option value="" disabled selected>-</option>
-													<option value="11OTKP1">11OTKP1</option>
-													<option value="11OTKP2">11OTKP2</option>
-													<option value="11TKJ1">11TKJ1</option>
-													<option value="11TKJ2">11TKJ2</option>
-													<option value="11TKJ3">11TKJ3</option>
-													<option value="11TBSM1">11TBSM1</option>
-												</select>
-											</div>
-                                        </div>
-										<div class="form-group row">
-                                            <label class="col-sm-2 col-form-label">Jenis Kelamin</label>
-                                            <div class="col-sm-2">
-												<select class="form-control" name="jenis_kelamin">
-													<option value="" disabled selected>-</option>
-													<option value="Laki-laki">Laki-laki</option>
-													<option value="Perempuan">Perempuan</option>
-												</select>
-											</div>
-                                        </div>
-
-										<div class="form-group row">
-                                            <label class="col-sm-2 col-form-label">Perusahaan</label>
-                                            <div class="col-sm-2">
-												<select class="form-control" name="perusahaan">
-													<option value="" disabled selected>-</option>
-													<?php do { ?>
-													<option value="<?=$row2['id'];?>"><?=$row2['nama_perusahaan'];?></option>
-													<?php } while ($row2= mysqli_fetch_assoc($query2));?>
-												</select>
-											</div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">No. Telp Perusahaan</label>
+                                            <div class="col-sm-3">
+                                                <input type="textbox" class="form-control" name="no_telp" placeholder="No. Telp Perusahaan" >
+                                            </div>
                                         </div>
                                         <div class="form-group row">
                                             <div class="col-sm-10">
