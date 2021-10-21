@@ -1,4 +1,6 @@
-
+<?php  
+session_start();//session starts here  
+?> 
 <!DOCTYPE html>
 <html class="h-100" lang="en">
 
@@ -43,14 +45,14 @@
                             <div class="card-body pt-5">
                                 <a class="text-center" href="index.html"> <h4>Rosella</h4></a>
         
-                                <form class="mt-5 mb-5 login-input">
+                                <form class="mt-5 mb-5 login-input" action="login.php" method="post"> 
                                     <div class="form-group">
-                                        <input type="email" class="form-control" placeholder="Email">
+                                        <input type="username" class="form-control" placeholder="Username" name="username" autofocus>
                                     </div>
                                     <div class="form-group">
-                                        <input type="password" class="form-control" placeholder="Password">
+                                        <input type="password" class="form-control" name="pass" placeholder="Password">
                                     </div>
-                                    <button class="btn login-form__btn submit w-100">Sign In</button>
+                                    <button class="btn login-form__btn submit w-100" type="submit" value="Login" name="login">Sign In</button>
                                 </form>
                                 <p class="mt-5 login-form__footer">Dont have account? <a href="page-register.html" class="text-primary">Sign Up</a> now</p>
                             </div>
@@ -76,6 +78,27 @@
 </html>
 
 
-
-
-
+<?php  
+  
+include("koneksi.php");  
+  
+if(isset($_POST['login']))  
+{  
+    $username=$_POST['username'];  
+    $pass=md5($_POST['pass']);   
+  
+    $run=mysqli_query($con, "select * from user WHERE username='$username' AND password='$pass'");  
+	$xrun = mysqli_fetch_assoc($run);
+    if(mysqli_num_rows($run) > 0)  
+    {  
+        echo "<script>window.open('index.php','_self')</script>";  
+  
+        $_SESSION['id']=$xrun['id'];
+  
+    }  
+    else  
+    {  
+      echo "<script>alert('Username or/and Password are incorrect!')</script>";  
+    }  
+}  
+?>  

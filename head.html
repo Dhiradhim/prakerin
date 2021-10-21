@@ -1,3 +1,20 @@
+<?php  
+session_start();  
+include('koneksi.php');
+$id=$_SESSION['id'];
+$query_user = mysqli_query($con, "SELECT * FROM user WHERE id='$id'") or die(mysqli_connect_error());
+$row_user = mysqli_fetch_assoc($query_user);
+$xrow_user = mysqli_num_rows($query_user);
+
+if(!$_SESSION['id'])
+{  
+  
+    header("Location: login.php");//redirect to login page to secure the welcome page without login access.  
+}  
+  
+?> 
+
+
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
     <!-- Custom Stylesheet -->
