@@ -63,23 +63,15 @@
             <div class="row page-titles mx-0">
                 <div class="col p-md-0">
                     <ol class="breadcrumb">
-                         <?php
-							if ($row_user['jabatan']=='administrator') {	
-								echo '<li class="breadcrumb-item"><a href="perusahaan_input.php"><button type="button" class="btn mb-1 btn-outline-primary">Input Data Baru</button></a></li>';
-							}
-							else
-							{
-							}
-						?>
+						<li class="breadcrumb-item"><a href="user_input.php"><button type="button" class="btn mb-1 btn-outline-primary">Input Data Baru</button></a></li>
                     </ol>
                 </div>
             </div>
             <!-- row -->
-			
 			<!-- QUERY START -->
 			<?php
 			include('koneksi.php');
-			$query = mysqli_query($con, "SELECT * FROM perusahaan ORDER by id") or die(mysqli_connect_error());
+			$query = mysqli_query($con, "SELECT user.username,user.id,siswa.nama FROM user LEFT JOIN siswa ON user.id=siswa.id_user WHERE user.jabatan='siswa'  ORDER by user.username") or die(mysqli_connect_error());
 			$row = mysqli_fetch_assoc($query);
 			$count = 1;
 			?>
@@ -89,43 +81,27 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-							<h4 class="card-title">Data Perusahaan</h4>
+							<h4 class="card-title">Data User</h4>
                                 <div class="table-responsive">
                                     <table class="table table-striped table-bordered zero-configuration">
                                         <thead>
                                             <tr>
                                                 <th><div align="center">No</div></th>
-                                                <th><div align="center">Nama Perusahaan</div></th>
-                                                <th><div align="center">Alamat</div></th>
-                                                <th><div align="center">No. Telp</div></th>
-                                                	<?php
-													if ($row_user['jabatan']=='administrator') {	
-													echo '<th><div align="center">Action</div></th>';
-													}
-													else
-													{
-													}
-													?>
-												
+                                                <th><div align="center">NIS</div></th>
+                                                <th><div align="center">Nama</div></th>
+												<th><div align="center">Action</div></th>
                                             </tr>
                                         </thead>
                                         <tbody>
 											<?php do { ?>
 												<tr>
 													<td><div align="center"><?php echo $count; ?></div></td>
-													<td><div align="center"><?php echo $row['nama_perusahaan']; ?></div></td>
-													<td><div align="center"><?php echo $row['alamat_perusahaan']; ?></div></td>
-													<td><div align="center"><?php echo $row['no_telp']; ?></div></td>
-													<?php
-													if ($row_user['jabatan']=='administrator') {	
-													echo '<td><div align="center">';
-													echo '<a href="perusahaan_edit.php?id='.$row['id'].'" title="Edit"> <img src="images/application_form_edit.png" width="16" height="16" /></a>  ';
-													echo '<a href="perusahaan_delete.php?id='.$row['id'].'" class="delete" title="Delete"><img src="images/application_delete.png" width="16" height="16" /></a> </td>';
-													}
-													else
-													{
-													}
-													?>
+													<td><div align="center"><?php echo $row['username']; ?></div></td>
+													<td><div align="center"><?php echo $row['nama']; ?></div></td>
+													<td><div align="center">
+													<a href="user_edit.php?id=<?=$row['id']?>" title="Edit"> <img src="images/application_form_edit.png" width="16" height="16" /></a>
+													<a href="user_delete.php?id=<?=$row['id']?>" class="delete" title="Delete"><img src="images/application_delete.png" width="16" height="16" /></a>
+													</div></td>
 												</tr>
 											<?php 
 											$count++;
@@ -135,9 +111,10 @@
                                         <tfoot>
                                             <tr>
                                                 <th><div align="center">No</div></th>
-                                                <th><div align="center">Nama Perusahaan</div></th>
-                                                <th><div align="center">Alamat</div></th>
-                                                <th><div align="center">No. Telp</div></th>
+                                                <th><div align="center">NIS</div></th>
+                                                <th><div align="center">Nama</div></th>
+												<th><div align="center">Action</div></th>
+
                                             </tr>
                                         </tfoot>
                                     </table>
@@ -174,7 +151,6 @@
         Scripts
     ***********************************-->
 	<?php include('scripts.html');?>
-	
 </body>
 
 </html>

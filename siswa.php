@@ -71,7 +71,7 @@
 			<!-- QUERY START -->
 			<?php
 			include('koneksi.php');
-			$query = mysqli_query($con, "SELECT siswa.*, perusahaan.id, perusahaan.nama_perusahaan FROM siswa INNER JOIN perusahaan ON siswa.id_perusahaan=perusahaan.id ORDER by siswa.id") or die(mysqli_connect_error());
+			$query = mysqli_query($con, "SELECT siswa.*,user.username,perusahaan.nama_perusahaan FROM siswa INNER JOIN user ON siswa.id_user=user.id INNER JOIN perusahaan ON siswa.id_perusahaan=perusahaan.id ORDER by user.username") or die(mysqli_connect_error());
 			$row = mysqli_fetch_assoc($query);
 			$count = 1;
 			?>
@@ -109,7 +109,7 @@
 												<tr>
 													<td><div align="center"><?php echo $count; ?></div></td>
 													<td><div align="center"><?php echo $row['nama']; ?></div></td>
-													<td><div align="center"><?php echo $row['nis']; ?></div></td>
+													<td><div align="center"><?php echo $row['username']; ?></div></td>
 													<td><div align="center"><?php echo $row['jenis_kelamin']; ?></div></td>
 													<td><div align="center"><?php echo $row['kelas']; ?></div></td>
 													<td><div align="center"><?php echo $row['jurusan']; ?></div></td>
@@ -121,7 +121,7 @@
 													echo '<a href="siswa_edit.php?id='.$row['id'].'" title="Edit"> <img src="images/application_form_edit.png" width="16" height="16" /></a>  ';
 													echo '<a href="siswa_delete.php?id='.$row['id'].'" class="delete" title="Delete"><img src="images/application_delete.png" width="16" height="16" /></a> </div></td>';
 													}
-													else if ($row_user['jabatan']=='kajur' AND $row['status']=="0") 
+													else if ($row_user['jabatan']=='administrator' AND $row['status']=="0") 
 													{
 														echo "<td><div align='center'><button class='btn btn-success'>SETUJU</button>  <button class='btn btn-danger'>TOLAK</button></a> </div></td>"; 
 													}

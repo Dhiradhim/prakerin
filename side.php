@@ -21,7 +21,7 @@
 								echo '<li><a href="pendaftaran-siswa.php">Pendaftaran</a></li>';
 							}
 							else if ($row_id['jabatan']=='administrator'){
-								echo '<li><a href="user_input.php">Buat User Baru</a></li>';
+								echo '<li><a href="user.php">Daftar User</a></li>';
 							}
 							?>
                             <li><a href="perusahaan.php">Referensi Tempat</a></li>

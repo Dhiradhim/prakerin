@@ -63,14 +63,6 @@
             <div class="row page-titles mx-0">
                 <div class="col p-md-0">
                     <ol class="breadcrumb">
-                         <?php
-							if ($row_user['jabatan']=='administrator') {	
-								echo '<li class="breadcrumb-item"><a href="perusahaan_input.php"><button type="button" class="btn mb-1 btn-outline-primary">Input Data Baru</button></a></li>';
-							}
-							else
-							{
-							}
-						?>
                     </ol>
                 </div>
             </div>
@@ -79,68 +71,43 @@
 			<!-- QUERY START -->
 			<?php
 			include('koneksi.php');
-			$query = mysqli_query($con, "SELECT * FROM perusahaan ORDER by id") or die(mysqli_connect_error());
+			$id=$_GET['id'];
+			$query = mysqli_query($con, "SELECT * FROM perusahaan WHERE id='$id'") or die(mysqli_connect_error());
 			$row = mysqli_fetch_assoc($query);
-			$count = 1;
 			?>
-			
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-12">
+                    <div class="col-lg-12">
                         <div class="card">
                             <div class="card-body">
-							<h4 class="card-title">Data Perusahaan</h4>
-                                <div class="table-responsive">
-                                    <table class="table table-striped table-bordered zero-configuration">
-                                        <thead>
-                                            <tr>
-                                                <th><div align="center">No</div></th>
-                                                <th><div align="center">Nama Perusahaan</div></th>
-                                                <th><div align="center">Alamat</div></th>
-                                                <th><div align="center">No. Telp</div></th>
-                                                	<?php
-													if ($row_user['jabatan']=='administrator') {	
-													echo '<th><div align="center">Action</div></th>';
-													}
-													else
-													{
-													}
-													?>
-												
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-											<?php do { ?>
-												<tr>
-													<td><div align="center"><?php echo $count; ?></div></td>
-													<td><div align="center"><?php echo $row['nama_perusahaan']; ?></div></td>
-													<td><div align="center"><?php echo $row['alamat_perusahaan']; ?></div></td>
-													<td><div align="center"><?php echo $row['no_telp']; ?></div></td>
-													<?php
-													if ($row_user['jabatan']=='administrator') {	
-													echo '<td><div align="center">';
-													echo '<a href="perusahaan_edit.php?id='.$row['id'].'" title="Edit"> <img src="images/application_form_edit.png" width="16" height="16" /></a>  ';
-													echo '<a href="perusahaan_delete.php?id='.$row['id'].'" class="delete" title="Delete"><img src="images/application_delete.png" width="16" height="16" /></a> </td>';
-													}
-													else
-													{
-													}
-													?>
-												</tr>
-											<?php 
-											$count++;
-											} while ($row = mysqli_fetch_assoc($query)); 
-											?>
-                                        </tbody>
-                                        <tfoot>
-                                            <tr>
-                                                <th><div align="center">No</div></th>
-                                                <th><div align="center">Nama Perusahaan</div></th>
-                                                <th><div align="center">Alamat</div></th>
-                                                <th><div align="center">No. Telp</div></th>
-                                            </tr>
-                                        </tfoot>
-                                    </table>
+                                <h4 class="card-title">Edit Data Perusahaan</h4>
+                                <div class="basic-form">								
+									<form method="post" action="perusahaan_edit_save.php">
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">Nama Perusahaan</label>
+                                            <div class="col-sm-5">
+                                                <input type="text" class="form-control" name="nama_perusahaan" placeholder="Nama Perusahaan" value="<?=$row['nama_perusahaan'];?>">
+                                                <input type="hidden" class="form-control" name="id" placeholder="Nama Perusahaan" value="<?=$row['id'];?>">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">Alamat Perusahaan</label>
+                                            <div class="col-sm-5">
+                                                <input type="textbox" class="form-control" name="alamat_perusahaan" placeholder="Alamat Perusahaan" value="<?=$row['alamat_perusahaan'];?>">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">No. Telp Perusahaan</label>
+                                            <div class="col-sm-3">
+                                                <input type="textbox" class="form-control" name="no_telp" placeholder="No. Telp Perusahaan" value="<?=$row['no_telp'];?>">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-sm-10">
+                                                <button type="submit" class="btn btn-dark">Submit</button>
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -174,7 +141,7 @@
         Scripts
     ***********************************-->
 	<?php include('scripts.html');?>
-	
+
 </body>
 
 </html>
