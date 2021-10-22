@@ -71,7 +71,8 @@
 			<!-- QUERY START -->
 			<?php
 			include('koneksi.php');
-			$query = mysqli_query($con, "SELECT siswa.*, perusahaan.nama_perusahaan, prakerin.* FROM prakerin INNER JOIN perusahaan ON prakerin.id_perusahaan=perusahaan.id INNER JOIN siswa ON prakerin.id_siswa=siswa.id ORDER by id_siswa") or die(mysqli_connect_error());
+			$username=$row_user['username'];
+			$query = mysqli_query($con, "SELECT siswa.*, perusahaan.nama_perusahaan, prakerin.*,user.username FROM prakerin INNER JOIN perusahaan ON prakerin.id_perusahaan=perusahaan.id INNER JOIN siswa ON prakerin.id_siswa=siswa.id INNER JOIN user ON prakerin.id_user=user.id ORDER by id_siswa") or die(mysqli_connect_error());
 			$row = mysqli_fetch_assoc($query);
 			$count = 1;
 			?>
@@ -111,7 +112,7 @@
 												<tr>
 													<td><div align="center"><?php echo $count; ?></div></td>
 													<td><div align="center"><?php echo $row['nama']; ?></div></td>
-													<td><div align="center"><?php echo $row['nis']; ?></div></td>
+													<td><div align="center"><?php echo $row['username']; ?></div></td>
 													<td><div align="center"><?php echo $row['jenis_kelamin']; ?></div></td>
 													<td><div align="center"><?php echo $row['kelas']; ?></div></td>
 													<td><div align="center"><?php echo $row['jurusan']; ?></div></td>

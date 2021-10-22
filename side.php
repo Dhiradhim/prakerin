@@ -37,7 +37,14 @@
                             <i class="icon-screen-tablet menu-icon"></i><span class="nav-text">Laporan Prakerin</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="inputlaporan.php">Input Laporan</a></li>
+						    <?php 
+							if ($row_id['jabatan']=='siswa') {
+								echo '<li><a href="laporan_input.php">Input Laporan</a></li>';
+							}
+							else {
+								echo '';
+							}
+							?>
                             <li><a href="lihatlaporan.php">Lihat Laporan</a></li>
                         </ul>
                     </li>

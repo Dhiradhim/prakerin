@@ -71,8 +71,8 @@
 			<!-- QUERY START -->
 			<?php
 			include('koneksi.php');
-			$nis=$row_user['username'];
-			$query = mysqli_query($con, "SELECT siswa.*, perusahaan.nama_perusahaan FROM siswa INNER JOIN perusahaan ON siswa.id_perusahaan=perusahaan.id WHERE nis='$nis'") or die(mysqli_connect_error());
+			$username=$row_user['username'];
+			$query = mysqli_query($con, "SELECT siswa.*, user.username, perusahaan.nama_perusahaan FROM user INNER JOIN siswa ON user.id=siswa.id_user INNER JOIN perusahaan ON siswa.id_perusahaan=perusahaan.id WHERE username='$username'") or die(mysqli_connect_error());
 			$row = mysqli_fetch_assoc($query);
 			$count = 1;
 			?>
@@ -96,7 +96,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-2 col-form-label">NIS</label>
                                             <div class="col-sm-3">
-                                                <input type="text" class="form-control" name="nis" readonly value="<?=$row['nis'];?>">
+                                                <input type="text" class="form-control" name="nis" readonly value="<?=$row['username'];?>">
                                             </div>
                                         </div>
 										<div class="form-group row">

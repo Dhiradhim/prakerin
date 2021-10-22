@@ -60,6 +60,14 @@
             Content body start
         ***********************************-->
         <div class="content-body">
+        <div class="content-body">
+            <div class="row page-titles mx-0">
+                <div class="col p-md-0">
+                    <ol class="breadcrumb">
+
+                    </ol>
+                </div>
+            </div>
             <!-- row -->
 			
 			<!-- QUERY START -->
@@ -68,8 +76,9 @@
 			$query2 = mysqli_query($con, "SELECT id,nama_perusahaan FROM perusahaan ORDER BY id") or die(mysqli_connect_error());
 			$row2 = mysqli_fetch_assoc($query2);	
 			
-			$nis=$row_user['username'];
-			$query3 = mysqli_query($con, "SELECT siswa.*, perusahaan.id, perusahaan.nama_perusahaan FROM siswa INNER JOIN perusahaan ON siswa.id_perusahaan=perusahaan.id WHERE nis='$nis'") or die(mysqli_connect_error());
+			
+			$username=$row_user['username'];
+			$query3 = mysqli_query($con, "SELECT siswa.*, user.username, perusahaan.nama_perusahaan FROM user INNER JOIN siswa ON user.id=siswa.id_user INNER JOIN perusahaan ON siswa.id_perusahaan=perusahaan.id WHERE username='$username'") or die(mysqli_connect_error());
 			$row3 = mysqli_fetch_assoc($query3);
 			$xrow3 = mysqli_num_rows($query3);
 			?>
@@ -164,7 +173,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-2 col-form-label">NIS</label>
                                             <div class="col-sm-3">
-                                                <input type="text" class="form-control" name="nis" readonly value="<?=$row3['nis'];?>">
+                                                <input type="text" class="form-control" name="nis" readonly value="<?=$row3['username'];?>">
                                             </div>
                                         </div>
 										<div class="form-group row">

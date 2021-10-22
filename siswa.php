@@ -73,6 +73,7 @@
 			include('koneksi.php');
 			$query = mysqli_query($con, "SELECT siswa.*,user.username,perusahaan.nama_perusahaan FROM siswa INNER JOIN user ON siswa.id_user=user.id INNER JOIN perusahaan ON siswa.id_perusahaan=perusahaan.id ORDER by user.username") or die(mysqli_connect_error());
 			$row = mysqli_fetch_assoc($query);
+			$id=$row['id'];
 			$count = 1;
 			?>
 			
@@ -114,7 +115,23 @@
 													<td><div align="center"><?php echo $row['kelas']; ?></div></td>
 													<td><div align="center"><?php echo $row['jurusan']; ?></div></td>
 													<td><div align="center"><?php echo $row['nama_perusahaan']; ?></div></td>
-													<td><div align="center"><?php if ($row['status']=="0") { echo "<button disabled type='submit' class='btn btn-default'>BELUM DISETUJUI</button>";} else if ($row['status']=="1") { echo "<button disabled type='submit' class='btn btn-success'>DISETUJUI</button>";} else { echo "<button disabled type='submit' class='btn btn-danger'>TIDAK DISETUJUI</button>";}?></div></td>
+													<td><div align="center"><?php 
+													if ($row_user['jabatan']=='administrator' AND $row['status']=="0") 
+													{ 
+														echo "<a href='status_ok.php?id=$id'><button type='button' class='btn btn-success'>SETUJU</button>              </a><a href='status_nok.php?id=$id'><button type='button' class='btn btn-danger'>TOLAK</button></a>";
+													} 
+													else if ($row['status']=="0") 
+													{
+														echo "<button disabled type='submit' class='btn btn-default'>BELUM DISETUJUI</button>";
+													}
+													else if ($row['status']=="1") 
+													{ 
+														echo "<button disabled type='submit' class='btn btn-success'>DISETUJUI</button>";
+													} 
+													else if ($row['status']=="2")
+													{ 
+														echo "<button disabled type='submit' class='btn btn-danger'>TIDAK DISETUJUI</button>";}?>
+													</div></td>
 													<?php
 													if ($row_user['jabatan']=='administrator') {	
 													echo '<td><div align="center">';
