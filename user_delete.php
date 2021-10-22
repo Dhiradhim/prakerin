@@ -8,6 +8,7 @@ if(mysqli_num_rows($cek) == 0){
 }else{
 	$del = mysqli_query($con, "DELETE FROM user WHERE id='$id'");
 	$del2 = mysqli_query($con, "DELETE FROM siswa WHERE id_user='$id'");
+	$del2 = mysqli_query($con, "DELETE FROM prakerin WHERE id_user='$id'");
 if($del){
 	echo ("<script language='JavaScript'> window.location.href='user.php?page=1&count=1'; </script>");
 	}else{

@@ -7,7 +7,7 @@ $reppassword=md5($_POST['reppassword']);
 $jabatan=$_POST['jabatan'];
 
 
-if ($password=="")
+if ($password=="d41d8cd98f00b204e9800998ecf8427e")
 {
 	$query = "UPDATE user set username='$username' WHERE id='$id'";
 	$sql= mysqli_query($con, $query);

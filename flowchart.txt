@@ -46,3 +46,9 @@ kepala jurusan
   a. laporan prakerin ( print ,acc )
 
 
+BELUM
+EDIT DATA SISWA
+EDIT LAPORAN ADMIN
+DELETE LAPORAN ADMIN
+HOME
+PRINT

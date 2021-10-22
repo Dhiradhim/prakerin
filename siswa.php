@@ -96,7 +96,7 @@
                                                 <th><div align="center">Perusahaan Yang Dituju</div></th>
                                                 <th><div align="center">Status</div></th>
 												    <?php
-													if ($row_user['jabatan']=='administrator' OR $row_user['jabatan']=='kajur') {	
+													if ($row_user['jabatan']=='administrator') {	
 													echo '<th><div align="center">Action</div></th>';
 													}
 													else
@@ -115,36 +115,27 @@
 													<td><div align="center"><?php echo $row['kelas']; ?></div></td>
 													<td><div align="center"><?php echo $row['jurusan']; ?></div></td>
 													<td><div align="center"><?php echo $row['nama_perusahaan']; ?></div></td>
-													<td><div align="center"><?php 
+													<?php 
 													if ($row_user['jabatan']=='administrator' AND $row['status']=="0") 
 													{ 
-														echo "<a href='status_ok.php?id=$id'><button type='button' class='btn btn-success'>SETUJU</button>              </a><a href='status_nok.php?id=$id'><button type='button' class='btn btn-danger'>TOLAK</button></a>";
+														echo "<td><div align='center'><a href='status_ok.php?id=$id&page=siswa'><button type='button' class='btn btn-success'>SETUJU</button>              </a><a href='status_nok.php?id=$id&page=siswa'><button type='button' class='btn btn-danger'>TOLAK</button></a></div></td>";
 													} 
 													else if ($row['status']=="0") 
 													{
-														echo "<button disabled type='submit' class='btn btn-default'>BELUM DISETUJUI</button>";
+														echo "<td><div align='center'><button disabled type='submit' class='btn btn-default'>BELUM DISETUJUI</button></div></td>";
 													}
 													else if ($row['status']=="1") 
 													{ 
-														echo "<button disabled type='submit' class='btn btn-success'>DISETUJUI</button>";
+														echo "<td><div align='center'><button disabled type='submit' class='btn btn-success'>DISETUJUI</button></div></td>";
 													} 
 													else if ($row['status']=="2")
 													{ 
-														echo "<button disabled type='submit' class='btn btn-danger'>TIDAK DISETUJUI</button>";}?>
-													</div></td>
+														echo "<td><div align='center'><button disabled type='submit' class='btn btn-danger'>TIDAK DISETUJUI</button></div></td>";}?>
 													<?php
 													if ($row_user['jabatan']=='administrator') {	
 													echo '<td><div align="center">';
 													echo '<a href="siswa_edit.php?id='.$row['id'].'" title="Edit"> <img src="images/application_form_edit.png" width="16" height="16" /></a>  ';
 													echo '<a href="siswa_delete.php?id='.$row['id'].'" class="delete" title="Delete"><img src="images/application_delete.png" width="16" height="16" /></a> </div></td>';
-													}
-													else if ($row_user['jabatan']=='administrator' AND $row['status']=="0") 
-													{
-														echo "<td><div align='center'><button class='btn btn-success'>SETUJU</button>  <button class='btn btn-danger'>TOLAK</button></a> </div></td>"; 
-													}
-													else
-													{
-														echo "<td><div align='center'> </div></td>";
 													}
 													?>
 												</tr>
@@ -164,7 +155,7 @@
                                                 <th><div align="center">Perusahaan Yang Dituju</div></th>
 												<th><div align="center">Status</div></th>
 												    <?php
-													if ($row_user['jabatan']=='administrator' OR $row_user['jabatan']=='kajur'){	
+													if ($row_user['jabatan']=='administrator'){	
 													echo '<th><div align="center">Action</div></th>';
 													}
 													else

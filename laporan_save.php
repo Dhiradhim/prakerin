@@ -1,7 +1,9 @@
 <?php
+session_start();
 include "koneksi.php";
 $id_siswa=$_POST['id_siswa'];
 $id_perusahaan=$_POST['id_perusahaan'];
+$id_user=$_SESSION['id'];
 
 $data_tgl_mulai=$_POST['tgl_mulai'];
 $xdata_tgl_mulai=explode("/", $data_tgl_mulai);
@@ -19,7 +21,7 @@ $tgl_kembali=$tgl_kembali_tahun."-".$tgl_kembali_bulan."-".$tgl_kembali_hari;
 
 
 
-$query = "INSERT into prakerin (id_siswa,id_perusahaan,tgl_kembali,tgl_mulai) values ('$id_siswa','$id_perusahaan','$tgl_kembali','$tgl_mulai')";
+$query = "INSERT into prakerin (id_siswa,id_user,id_perusahaan,tgl_kembali,tgl_mulai) values ('$id_siswa','$id_user','$id_perusahaan','$tgl_kembali','$tgl_mulai')";
 $sql=mysqli_query($con, $query);
 echo '<script>window.location.href="lihatlaporan.php?page=1&count=1"</script>';
 ?>

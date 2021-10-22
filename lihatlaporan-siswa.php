@@ -73,18 +73,8 @@
 			include('koneksi.php');
 			$username=$row_user['username'];
 			$id=$_SESSION['id'];
-			$query_cek = mysqli_query($con, "SELECT id_user FROM prakerin WHERE id_user='$id'") or die(mysqli_connect_error());
-			$row_cek = mysqli_num_rows($query_cek);
-			$query_cek2 = mysqli_query($con, "SELECT status FROM siswa WHERE id_user='$id'") or die(mysqli_connect_error());
-			$row_cek2 = mysqli_fetch_assoc($query_cek2);		
-			
-			if ($row_cek2['status']=='0' OR $row_cek2['status']=='2')
-			{
-				echo '<script>window.location.href="pendaftaran-siswa.php"</script>';
-			}
-			else if ($row_cek=='0')
-			{
-			$query = mysqli_query($con, "SELECT siswa.*, user.username, perusahaan.nama_perusahaan FROM user INNER JOIN siswa ON user.id=siswa.id_user INNER JOIN perusahaan ON siswa.id_perusahaan=perusahaan.id WHERE username='$username'") or die(mysqli_connect_error());
+
+			$query = mysqli_query($con, "SELECT siswa.*, perusahaan.nama_perusahaan, prakerin.*,user.username FROM prakerin INNER JOIN perusahaan ON prakerin.id_perusahaan=perusahaan.id INNER JOIN siswa ON prakerin.id_siswa=siswa.id INNER JOIN user ON prakerin.id_user=user.id WHERE prakerin.id_user='$id'") or die(mysqli_connect_error());
 			$row = mysqli_fetch_assoc($query);
 			$count = 1;
 			?>
@@ -94,7 +84,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">Input Laporan Prakerin</h4>
+                                <h4 class="card-title">Lihat Laporan Prakerin</h4>
                                 <div class="basic-form">
                                     <form method="post" action="laporan_save.php">
                                          <div class="form-group row">
@@ -138,20 +128,21 @@
 									   <div class="form-group row">
                                             <label class="col-sm-2 col-form-label">Tanggal Mulai</label>
                                             <div class="input-group col-sm-2">
-                                                <input type="text" name="tgl_mulai" class="form-control" id="datepicker-autoclose" placeholder="mm/dd/yyyy"> <span class="input-group-append"><span class="input-group-text"><i class="mdi mdi-calendar-check"></i></span></span>
+                                                <input type="text" class="form-control" name="tgl_mulai" readonly value="<?=$row['tgl_mulai'];?>">
                                             </div>
 										</div>
 									   <div class="form-group row">
                                             <label class="col-sm-2 col-form-label">Tanggal Kembali</label>
                                             <div class="input-group col-sm-2">
-                                                <input type="text" name="tgl_kembali" class="form-control mydatepicker" placeholder="mm/dd/yyyy"> <span class="input-group-append"><span class="input-group-text"><i class="mdi mdi-calendar-check"></i></span></span>
+                                                <input type="text" class="form-control" name="tgl_kembali" readonly value="<?=$row['tgl_kembali'];?>">
                                             </div>
 										</div>
-                                        <div class="form-group row">
-                                            <div class="col-sm-10">
-                                                <button type="submit" class="btn btn-dark">Submit</button>
-                                            </div>
-                                        </div>
+										<div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">Status</label>
+                                            <div class="col-sm-2">
+												<?php if ($row['status_prakerin']=="0") { echo "<button disabled type='submit' class='btn btn-default'>BELUM DISETUJUI</button>";} else if ($row['status_prakerin']=="1") { echo "<button disabled type='submit' class='btn btn-success'>DISETUJUI</button>";} else { echo "<button disabled type='submit' class='btn btn-danger'>TIDAK DISETUJUI</button>";}?>
+											</div>
+                                        </div>									
                                     </form>
                                 </div>
                             </div>
@@ -159,13 +150,6 @@
                     </div>
                 </div>
             </div>
-			<?php 
-			}
-			else
-			{
-				echo '<script>window.location.href="lihatlaporan-siswa.php"</script>';
-			}
-			?>
             <!-- #/ container -->
         </div>
         <!--**********************************

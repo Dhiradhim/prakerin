@@ -27,11 +27,13 @@
                             <li><a href="perusahaan.php">Referensi Tempat</a></li>
                         </ul>
                     </li>
+					 <?php
+					if ($row_id['jabatan']!=='siswa') { ?>
 					<li>
                         <a href="siswa.php" aria-expanded="false">
-                            <i class="icon-people menu-icon"></i><span class="nav-text">Daftar Siswa</span>
+							<i class="icon-people menu-icon"></i><span class="nav-text">Daftar Siswa</span>
                         </a>
-                    </li>
+                    </li><?php } ?>
                     <li>
                         <a class="has-arrow" href="javascript:void()" aria-expanded="false">
                             <i class="icon-screen-tablet menu-icon"></i><span class="nav-text">Laporan Prakerin</span>
@@ -45,7 +47,14 @@
 								echo '';
 							}
 							?>
-                            <li><a href="lihatlaporan.php">Lihat Laporan</a></li>
+                            <?php 
+							if ($row_id['jabatan']=='siswa') {
+								echo '<li><a href="lihatlaporan-siswa.php">Lihat Laporan</a></li></li>';
+							}
+							else {
+								echo '<li><a href="lihatlaporan.php">Lihat Laporan</a></li>';
+							}
+							?>
                         </ul>
                     </li>
                 </ul>

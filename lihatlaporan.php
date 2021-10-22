@@ -74,6 +74,7 @@
 			$username=$row_user['username'];
 			$query = mysqli_query($con, "SELECT siswa.*, perusahaan.nama_perusahaan, prakerin.*,user.username FROM prakerin INNER JOIN perusahaan ON prakerin.id_perusahaan=perusahaan.id INNER JOIN siswa ON prakerin.id_siswa=siswa.id INNER JOIN user ON prakerin.id_user=user.id ORDER by id_siswa") or die(mysqli_connect_error());
 			$row = mysqli_fetch_assoc($query);
+			$id=$row['id'];
 			$count = 1;
 			?>
 			
@@ -98,7 +99,7 @@
                                                 <th><div align="center">Tanggal Kembali</div></th>
                                                 <th><div align="center">Status</div></th>
 												    <?php
-													if ($row_user['jabatan']=='administrator' OR $row_user['jabatan']=='kajur') {	
+													if ($row_user['jabatan']=='administrator') {	
 													echo '<th><div align="center">Action</div></th>';
 													}
 													else
@@ -119,20 +120,48 @@
 													<td><div align="center"><?php echo $row['nama_perusahaan']; ?></div></td>
 													<td><div align="center"><?php echo $row['tgl_mulai']; ?></div></td>
 													<td><div align="center"><?php echo $row['tgl_kembali']; ?></div></td>
-													<td><div align="center"><?php if ($row['status_prakerin']=="0") { echo "<button disabled type='submit' class='btn btn-default'>BELUM DISETUJUI</button>";} else if ($row['status_prakerin']=="1") { echo "<button disabled type='submit' class='btn btn-success'>DISETUJUI</button>";} else { echo "<button disabled type='submit' class='btn btn-danger'>TIDAK DISETUJUI</button>";}?></div></td>
+													<td><div align='center'>
+													<?php 
+													if ($row_user['jabatan']=='kajur' AND $row['status_prakerin']=="0") 
+													{ ?>
+														<a href='status_ok.php?id=<?=$id?>&page=lap'><button type='button' class='btn btn-success'>SETUJU</button></a>    <a href='status_nok.php?id=<?=$id?>&page=lap'><button type='button' class='btn btn-danger'>TOLAK</button></a>
+													<?php
+													} 
+													else if ($row_user['jabatan']=='kajur' AND $row['status_prakerin']=="1") 
+													{ ?>
+													<button disabled type='submit' class='btn btn-success'>DISETUJUI</button>  <a href='laporan_print.php?id=<?=$id?>'><button type='button' class='btn btn-warning'>PRINT</button></a>
+													<?php
+													} 
+													else if ($row_user['jabatan']=='kajur' AND $row['status_prakerin']=="2") 
+													{ ?>
+													<button disabled type='submit' class='btn btn-success'>TIDAK DISETUJUI</button>  <a href='laporan_print.php?id=<?=$id?>'><button type='button' class='btn btn-warning'>PRINT</button></a>
+													<?php
+													}
+													else if (($row_user['jabatan']=='kepsek' OR $row_user['jabatan']=='administrator') AND $row['status_prakerin']=="0")
+													{
+													?>
+													<button disabled type='submit' class='btn btn-default'>BELUM DISETUJUI</button>
+													<?php
+													}
+													else if (($row_user['jabatan']=='kepsek' OR $row_user['jabatan']=='administrator') AND $row['status_prakerin']=="1")
+													{
+													?>
+													<button disabled type='submit' class='btn btn-success'>DISETUJUI</button>  <a href='laporan_print.php?id=<?=$id?>'><button type='button' class='btn btn-warning'>PRINT</button></a>
+													<?php
+													}
+													else if (($row_user['jabatan']=='kepsek' OR $row_user['jabatan']=='administrator') AND $row['status_prakerin']=="2")
+													{
+													?>
+													<button disabled type='submit' class='btn btn-danger'>TIDAK DISETUJUI</button> <a href='laporan_print.php?id=<?=$id?>'><button type='button' class='btn btn-warning'>PRINT</button></a>
+													<?php
+													}
+													?>
+													</div></td>
 													<?php
 													if ($row_user['jabatan']=='administrator') {	
 													echo '<td><div align="center">';
-													echo '<a href="siswa_edit.php?id='.$row['id'].'" title="Edit"> <img src="images/application_form_edit.png" width="16" height="16" /></a>  ';
-													echo '<a href="siswa_delete.php?id='.$row['id'].'" class="delete" title="Delete"><img src="images/application_delete.png" width="16" height="16" /></a> </div></td>';
-													}
-													else if ($row_user['jabatan']=='kajur' AND $row['status_prakerin']=="0") 
-													{
-														echo "<td><div align='center'><button class='btn btn-success'>SETUJU</button>  <button class='btn btn-danger'>TOLAK</button></a> </div></td>"; 
-													}
-													else if ($row_user['jabatan']=='kajur' OR $row_user['jabatan']=='kepsek' AND $row['status_prakerin']>"1") 
-													{
-														echo "<td><div align='center'><button class='btn btn-warning'>PRINT</button></div></td>";
+													echo '<a href="laporan_edit.php?id='.$row['id'].'" title="Edit"> <img src="images/application_form_edit.png" width="16" height="16" /></a>  ';
+													echo '<a href="laporan_delete.php?id='.$row['id'].'" class="delete" title="Delete"><img src="images/application_delete.png" width="16" height="16" /></a> </div></td>';
 													}
 													?>
 												</tr>
@@ -154,7 +183,7 @@
                                                 <th><div align="center">Tanggal Kembali</div></th>
 												<th><div align="center">Status</div></th>
 												    <?php
-													if ($row_user['jabatan']=='administrator' OR $row_user['jabatan']=='kajur'){	
+													if ($row_user['jabatan']=='administrator'){	
 													echo '<th><div align="center">Action</div></th>';
 													}
 													else
