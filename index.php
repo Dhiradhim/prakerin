@@ -68,7 +68,25 @@
                 </div>
             </div>
             <!-- row -->
+	<!-- QUERY START -->
+			<?php
+			include('koneksi.php');
+			$q_js = mysqli_query($con, "SELECT id FROM user WHERE jabatan='siswa'") or die(mysqli_connect_error());
+			$r_js = mysqli_num_rows($q_js);
+			$q_st = mysqli_query($con, "SELECT id FROM siswa") or die(mysqli_connect_error());
+			$r_st = mysqli_num_rows($q_st);
+			$q_sps = mysqli_query($con, "SELECT id FROM siswa WHERE status='1'") or die(mysqli_connect_error());
+			$r_sps = mysqli_num_rows($q_sps);
+			$q_spt = mysqli_query($con, "SELECT id FROM siswa WHERE status='2'") or die(mysqli_connect_error());
+			$r_spt = mysqli_num_rows($q_spt);
+			$q_lpm = mysqli_query($con, "SELECT id FROM prakerin") or die(mysqli_connect_error());
+			$r_lpm = mysqli_num_rows($q_lpm);
+			$q_lps = mysqli_query($con, "SELECT id FROM prakerin WHERE status_prakerin='1'") or die(mysqli_connect_error());
+			$r_lps = mysqli_num_rows($q_lps);
+			$q_lpt = mysqli_query($con, "SELECT id FROM prakerin WHERE status_prakerin='2'") or die(mysqli_connect_error());
+			$r_lpt = mysqli_num_rows($q_lpt);
 
+			?>
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-3 col-sm-6">
@@ -76,7 +94,7 @@
                             <div class="card-body">
                                 <h3 class="card-title text-white">Jumlah Siswa</h3>
                                 <div class="d-inline-block">
-                                    <h2 class="text-white">150</h2>
+                                    <h2 class="text-white"><?=$r_js;?></h2>
                                     <p class="text-white mb-0"></p>
                                 </div>
                             </div>
@@ -87,7 +105,7 @@
                             <div class="card-body">
                                 <h3 class="card-title text-white">Siswa Terdaftar</h3>
                                 <div class="d-inline-block">
-                                    <h2 class="text-white">125</h2>
+                                    <h2 class="text-white"><?=$r_st;?></h2>
                                     <p class="text-white mb-0"></p>
                                 </div>
                             </div>
@@ -98,7 +116,7 @@
                             <div class="card-body">
                                 <h3 class="card-title text-white">Siswa Prakerin Disetujui</h3>
                                 <div class="d-inline-block">
-                                    <h2 class="text-white">75</h2>
+                                    <h2 class="text-white"><?=$r_sps;?></h2>
                                     <p class="text-white mb-0"></p>
                                 </div>
                             </div>
@@ -109,7 +127,7 @@
                             <div class="card-body">
                                 <h3 class="card-title text-white">Siswa Prakerin Ditolak</h3>
                                 <div class="d-inline-block">
-                                    <h2 class="text-white">50</h2>
+                                    <h2 class="text-white"><?=$r_spt;?></h2>
                                     <p class="text-white mb-0"></p>
                                 </div>
                             </div>
@@ -123,7 +141,7 @@
                             <div class="card-body">
                                 <h3 class="card-title text-white">Laporan Prakerin Masuk</h3>
                                 <div class="d-inline-block">
-                                    <h2 class="text-white">50</h2>
+                                    <h2 class="text-white"><?=$r_lpm;?></h2>
                                     <p class="text-white mb-0"></p>
                                 </div>
                             </div>
@@ -134,7 +152,7 @@
                             <div class="card-body">
                                 <h3 class="card-title text-white">Laporan Prakerin Disetujui</h3>
                                 <div class="d-inline-block">
-                                    <h2 class="text-white">30</h2>
+                                    <h2 class="text-white"><?=$r_lps;?></h2>
                                     <p class="text-white mb-0"></p>
                                 </div>
                             </div>
@@ -145,7 +163,7 @@
                             <div class="card-body">
                                 <h3 class="card-title text-white">Laporan Prakerin Ditolak</h3>
                                 <div class="d-inline-block">
-                                    <h2 class="text-white">75</h2>
+                                    <h2 class="text-white"><?=$r_lpt;?></h2>
                                     <p class="text-white mb-0"></p>
                                 </div>
                             </div>

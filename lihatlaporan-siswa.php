@@ -73,7 +73,15 @@
 			include('koneksi.php');
 			$username=$row_user['username'];
 			$id=$_SESSION['id'];
-
+			$query_cek = mysqli_query($con, "SELECT id_user FROM prakerin WHERE id_user='$id'") or die(mysqli_connect_error());
+			$row_cek = mysqli_num_rows($query_cek);
+			
+			if ($row_cek=='0')
+			{
+				echo '<script>window.location.href="laporan_input.php"</script>';
+			} 
+			else
+			{
 			$query = mysqli_query($con, "SELECT siswa.*, perusahaan.nama_perusahaan, prakerin.*,user.username FROM prakerin INNER JOIN perusahaan ON prakerin.id_perusahaan=perusahaan.id INNER JOIN siswa ON prakerin.id_siswa=siswa.id INNER JOIN user ON prakerin.id_user=user.id WHERE prakerin.id_user='$id'") or die(mysqli_connect_error());
 			$row = mysqli_fetch_assoc($query);
 			$count = 1;
@@ -150,6 +158,9 @@
                     </div>
                 </div>
             </div>
+			<?php
+			}
+			?>
             <!-- #/ container -->
         </div>
         <!--**********************************
