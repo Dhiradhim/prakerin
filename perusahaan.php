@@ -138,6 +138,14 @@
                                                 <th><div align="center">Nama Perusahaan</div></th>
                                                 <th><div align="center">Alamat</div></th>
                                                 <th><div align="center">No. Telp</div></th>
+												    <?php
+													if ($row_user['jabatan']=='administrator') {	
+													echo '<th><div align="center">Action</div></th>';
+													}
+													else
+													{
+													}
+													?>
                                             </tr>
                                         </tfoot>
                                     </table>

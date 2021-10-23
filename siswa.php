@@ -73,7 +73,6 @@
 			include('koneksi.php');
 			$query = mysqli_query($con, "SELECT siswa.*,user.username,perusahaan.nama_perusahaan FROM siswa INNER JOIN user ON siswa.id_user=user.id INNER JOIN perusahaan ON siswa.id_perusahaan=perusahaan.id ORDER by user.username") or die(mysqli_connect_error());
 			$row = mysqli_fetch_assoc($query);
-			$id=$row['id'];
 			$count = 1;
 			?>
 			
@@ -106,7 +105,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-											<?php do { ?>
+											<?php do { $id=$row['id']; ?>
 												<tr>
 													<td><div align="center"><?php echo $count; ?></div></td>
 													<td><div align="center"><?php echo $row['nama']; ?></div></td>
