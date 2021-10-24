@@ -56,6 +56,11 @@
 							}
 							?>
                         </ul>
+					<li>
+                        <a href="logout.php" class='logout' aria-expanded="false">
+							<i class="icon-key menu-icon"></i><span class="nav-text">Logout</span>
+                        </a>
+                    </li>
                     </li>
                 </ul>
             </div>

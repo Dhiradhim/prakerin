@@ -71,6 +71,7 @@
 	<!-- QUERY START -->
 			<?php
 			include('koneksi.php');
+			$id_user=$_SESSION['id'];
 			$q_js = mysqli_query($con, "SELECT id FROM user WHERE jabatan='siswa'") or die(mysqli_connect_error());
 			$r_js = mysqli_num_rows($q_js);
 			$q_st = mysqli_query($con, "SELECT id FROM siswa") or die(mysqli_connect_error());
@@ -85,7 +86,57 @@
 			$r_lps = mysqli_num_rows($q_lps);
 			$q_lpt = mysqli_query($con, "SELECT id FROM prakerin WHERE status_prakerin='2'") or die(mysqli_connect_error());
 			$r_lpt = mysqli_num_rows($q_lpt);
+			
+			$q_siswa = mysqli_query($con, "SELECT nama,status FROM siswa WHERE id_user='$id_user'") or die(mysqli_connect_error());
+			$r_siswa = mysqli_fetch_assoc($q_siswa);
+			$j_siswa = mysqli_num_rows($q_siswa);
+			
+			$q_prakerin = mysqli_query($con, "SELECT status_prakerin FROM prakerin WHERE id_user='$id_user'") or die(mysqli_connect_error());
+			$r_prakerin = mysqli_fetch_assoc($q_prakerin);
+			$j_prakerin = mysqli_num_rows($q_prakerin);
+			
+			
 
+			if ($row_user['jabatan']=='siswa')
+			{
+			?>
+           <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+							<?php
+							if ($r_prakerin['status_prakerin']=="0"){
+								echo'<h4 class="card-title">Hai '.$r_siswa['nama'].', Laporan kamu sedang dalam proses persetujuan oleh Kepala Jurusan.</h4>';
+							}
+							else if ($r_prakerin['status_prakerin']=="1"){
+								echo'<h4 class="card-title">Hai '.$r_siswa['nama'].', Laporan kamu sudah disetujui dan divalidasi. Selamat kamu telah selesai melaksanakan Prakerin.</h4>';
+							}
+							else if ($r_prakerin['status_prakerin']=="2"){
+								echo'<h4 class="card-title">Hai '.$r_siswa['nama'].', Laporan kamu tidak disetujui, silahkan periksa laporan kamu dan kirim ulang laporan.</h4>';
+							}
+							else if ($j_siswa=="0"){
+								echo'<h4 class="card-title">Hai, Anda belum mendaftar Prakerin, Silahkan daftarkan diri anda melalu link berikut : <a href="pendaftaran-siswa.php">KLIK DISINI</a> </h4>';
+							}
+							else if ($r_siswa['status']=="0"){
+								echo'<h4 class="card-title">Hai '.$r_siswa['nama'].', Terimakasih sudah mendaftar. Pendaftaran anda sedang menunggu proses validasi.</h4>';
+							}
+							else if ($r_siswa['status']=="2"){
+								echo'<h4 class="card-title">Hai '.$r_siswa['nama'].', Pendaftaran Prakerin kamu tidak disetujui, silahkan mendaftar kembali melalui menu EDIT DATA link berikut : <a href="pendaftaran-siswa.php">KLIK DISINI</a>.</h4>';
+							}
+							else if ($r_siswa['status']=="1"){
+								echo'<h4 class="card-title">Hai '.$r_siswa['nama'].', Pendaftaran Prakerin kamu sudah divalidasi, selamat menjalankan Prakerin.</h4>';
+							}
+							?>
+							</div>
+						</div>	
+					</div>		
+                </div>
+			</div>	
+			<?php	
+			}
+			else
+			{
 			?>
             <div class="container-fluid">
                 <div class="row">
@@ -171,6 +222,10 @@
                     </div>
                 </div>
             </div>
+			
+			<?php
+			}
+			?>
             <!-- #/ container -->
         </div>
         <!--**********************************

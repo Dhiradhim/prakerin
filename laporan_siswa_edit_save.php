@@ -17,8 +17,8 @@ $tgl_kembali_hari = $xdata_tgl_kembali[1];
 $tgl_kembali_tahun = $xdata_tgl_kembali[2];
 $tgl_kembali=$tgl_kembali_tahun."-".$tgl_kembali_bulan."-".$tgl_kembali_hari;
 
-$query = "UPDATE prakerin set tgl_kembali='$tgl_kembali',tgl_mulai='$tgl_mulai' WHERE id='$id'";
+$query = "UPDATE prakerin set tgl_kembali='$tgl_kembali',tgl_mulai='$tgl_mulai', status_prakerin='0' WHERE id='$id'";
 $sql=mysqli_query($con, $query);
-echo '<script>window.location.href="lihatlaporan.php?page=1&count=1"</script>';
+echo '<script>window.location.href="lihatlaporan-siswa.php"</script>';
 ?>
 

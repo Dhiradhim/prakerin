@@ -6,26 +6,7 @@
                         <span class="toggle-icon"><i class="icon-menu"></i></span>
                     </div>
                 </div>
-                <div class="header-right">
-                    <ul class="clearfix">
-                        <li class="icons dropdown">
-                            <div class="user-img c-pointer position-relative"   data-toggle="dropdown">
-                              
-                                <img src="images/user/1.png" height="40" width="40" alt="">
-                            </div>
-                            <div class="drop-down dropdown-profile dropdown-menu">
-                                <div class="dropdown-content-body">
-                                    <ul>
-                                        <li>
-                                            <a href="changepw.php"><i class="icon-user"></i> <span>Ganti Password</span></a>
-                                        </li>
-                                        <li><a href="logout.php"><i class="icon-key"></i> <span>Logout</span></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
+
             </div>
         </div>
 		
@@ -34,6 +15,17 @@
 $(document).ready(function(){
     $("a.delete").click(function(e){
         if(!confirm('Anda yakin akan menghapus data ini?')){
+            e.preventDefault();
+            return false;
+        }
+        return true;
+    });
+});
+</script>
+<script language="JavaScript" type="text/javascript">
+$(document).ready(function(){
+    $("a.logout").click(function(e){
+        if(!confirm('Anda yakin akan keluar dari aplikasi ini?')){
             e.preventDefault();
             return false;
         }

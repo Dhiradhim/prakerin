@@ -73,7 +73,7 @@
 			include('koneksi.php');
 			$username=$row_user['username'];
 			$id=$_GET['id'];
-			$query = mysqli_query($con, "SELECT siswa.*, user.username, perusahaan.nama_perusahaan FROM user INNER JOIN siswa ON user.id=siswa.id_user INNER JOIN perusahaan ON siswa.id_perusahaan=perusahaan.id WHERE siswa.id='$id'") or die(mysqli_connect_error());
+			$query = mysqli_query($con, "SELECT siswa.nama, siswa.kelas, siswa.jurusan, siswa.jenis_kelamin, siswa.status, user.username, perusahaan.nama_perusahaan, prakerin.id FROM prakerin INNER JOIN user ON user.id=prakerin.id_user INNER JOIN perusahaan ON prakerin.id_perusahaan=perusahaan.id INNER JOIN siswa ON siswa.id=prakerin.id_siswa WHERE prakerin.id='$id'") or die(mysqli_connect_error());
 			$row = mysqli_fetch_assoc($query);
 			$count = 1;
 			?>
@@ -90,7 +90,7 @@
                                             <label class="col-sm-2 col-form-label">Nama</label>
                                             <div class="col-sm-5">
                                                 <input type="text" class="form-control" readonly name="nama" placeholder="Nama Lengkap" value="<?=$row['nama'];?>">
-                                                <input type="hidden" class="form-control" readonly name="id_siswa" value="<?=$row['id'];?>">
+                                                <input type="hidden" class="form-control" readonly name="id" value="<?=$row['id'];?>">
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -121,7 +121,6 @@
                                             <label class="col-sm-2 col-form-label">Perusahaan</label>
                                             <div class="col-sm-3">
 												<input type="text" class="form-control" name="perusahaan" readonly value="<?=$row['nama_perusahaan'];?>">
-												<input type="hidden" class="form-control" readonly name="id_perusahaan" value="<?=$row['id_perusahaan'];?>">
 											</div>
                                         </div>
 									   <div class="form-group row">

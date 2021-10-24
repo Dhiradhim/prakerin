@@ -127,32 +127,22 @@
 														<a href='status_ok.php?id=<?=$id?>&page=lap'><button type='button' class='btn btn-success'>SETUJU</button></a>    <a href='status_nok.php?id=<?=$id?>&page=lap'><button type='button' class='btn btn-danger'>TOLAK</button></a>
 													<?php
 													} 
-													else if ($row_user['jabatan']=='kajur' AND $row['status_prakerin']=="1") 
-													{ ?>
-													<button disabled type='submit' class='btn btn-success'>DISETUJUI</button>  <a href='laporan_print.php?id=<?=$id?>'><button type='button' class='btn btn-warning'>PRINT</button></a>
-													<?php
-													} 
-													else if ($row_user['jabatan']=='kajur' AND $row['status_prakerin']=="2") 
-													{ ?>
-													<button disabled type='submit' class='btn btn-success'>TIDAK DISETUJUI</button>  <a href='laporan_print.php?id=<?=$id?>'><button type='button' class='btn btn-warning'>PRINT</button></a>
-													<?php
-													}
 													else if (($row_user['jabatan']=='kepsek' OR $row_user['jabatan']=='administrator') AND $row['status_prakerin']=="0")
 													{
 													?>
 													<button disabled type='submit' class='btn btn-default'>BELUM DISETUJUI</button>
 													<?php
 													}
-													else if (($row_user['jabatan']=='kepsek' OR $row_user['jabatan']=='administrator') AND $row['status_prakerin']=="1")
+													else if ($row['status_prakerin']=="1")
 													{
 													?>
-													<button disabled type='submit' class='btn btn-success'>DISETUJUI</button>  <a href='laporan_print.php?id=<?=$id?>'><button type='button' class='btn btn-warning'>PRINT</button></a>
+													<button disabled type='submit' class='btn btn-success'>DISETUJUI</button> <a href='laporan_print.php?id=<?=$id?>' target='_blank'><button type='button' class='btn btn-warning'>PRINT</button></a>
 													<?php
 													}
-													else if (($row_user['jabatan']=='kepsek' OR $row_user['jabatan']=='administrator') AND $row['status_prakerin']=="2")
+													else if ($row['status_prakerin']=="2")
 													{
 													?>
-													<button disabled type='submit' class='btn btn-danger'>TIDAK DISETUJUI</button> <a href='laporan_print.php?id=<?=$id?>'><button type='button' class='btn btn-warning'>PRINT</button></a>
+													<button disabled type='submit' class='btn btn-danger'>TIDAK DISETUJUI</button> <a href='laporan_print.php?id=<?=$id?>' target='_blank'><button type='button' class='btn btn-warning'>PRINT</button></a>
 													<?php
 													}
 													?>
