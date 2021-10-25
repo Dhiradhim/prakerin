@@ -57,8 +57,13 @@
 							?>
                         </ul>
 					<li>
+                        <a href="changepw.php"  aria-expanded="false">
+							<i class="icon-key menu-icon"></i><span class="nav-text">Ganti Password</span>
+                        </a>
+                    </li>
+					<li>
                         <a href="logout.php" class='logout' aria-expanded="false">
-							<i class="icon-key menu-icon"></i><span class="nav-text">Logout</span>
+							<i class="icon-logout menu-icon"></i><span class="nav-text">Logout</span>
                         </a>
                     </li>
                     </li>
